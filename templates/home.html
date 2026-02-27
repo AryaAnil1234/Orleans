@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thrissur Bus Route Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .dropdown {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #ccc;
+            max-height: 180px;
+            overflow-y: auto;
+            display: none;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown div:hover {
+            background: #f1f1f1;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .no-bus {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h3>Thrissur Bus Route Search</h3>
+
+    <div class="input-group">
+        <input type="text" id="source" placeholder="Enter Source">
+        <div id="sourceDropdown" class="dropdown"></div>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="destination" placeholder="Enter Destination">
+        <div id="destinationDropdown" class="dropdown"></div>
+    </div>
+
+    <button onclick="searchRoute()">Search</button>
+
+    <div id="busResult"></div>
+</div>
+
+<script>
+let places = [];
+let buses = [];
+
+// Load JSON
+fetch("places.json")
+.then(res => res.json())
+.then(data => {
+    places = data.places.sort();
+    buses = data.buses;
+});
+
+// Autocomplete
+function setupAutocomplete(inputId, dropdownId) {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+
+    input.addEventListener("focus", () => showDropdown(places));
+    input.addEventListener("input", function () {
+        const val = this.value.toLowerCase();
+        const filtered = places.filter(p => p.toLowerCase().includes(val));
+        showDropdown(filtered);
+    });
+
+    function showDropdown(list) {
+        dropdown.innerHTML = "";
+        if(list.length === 0) { dropdown.style.display="none"; return; }
+        list.forEach(place => {
+            const div = document.createElement("div");
+            div.textContent = place;
+            div.onclick = () => { input.value = place; dropdown.style.display="none"; };
+            dropdown.appendChild(div);
+        });
+        dropdown.style.display = "block";
+    }
+
+    document.addEventListener("click", e => {
+        if(!input.contains(e.target) && !dropdown.contains(e.target)){
+            dropdown.style.display = "none";
+        }
+    });
+}
+
+setupAutocomplete("source", "sourceDropdown");
+setupAutocomplete("destination", "destinationDropdown");
+
+// Search route
+function searchRoute() {
+    const source = document.getElementById("source").value;
+    const destination = document.getElementById("destination").value;
+    const resultDiv = document.getElementById("busResult");
+    resultDiv.innerHTML = "";
+
+    if(!source || !destination){
+        alert("Please enter both source and destination");
+        return;
+    }
+
+    const availableBuses = [];
+
+    buses.forEach(bus => {
+        const srcIndex = bus.stops.indexOf(source);
+        const destIndex = bus.stops.indexOf(destination);
+
+        if(srcIndex !== -1 && destIndex !== -1 && srcIndex < destIndex){
+            availableBuses.push({
+                busNo: bus.busNo,
+                boarding: bus.boarding,
+                ending: bus.ending,
+                srcTime: bus.timings[srcIndex],
+                destTime: bus.timings[destIndex]
+            });
+        }
+    });
+
+    if(availableBuses.length === 0){
+        resultDiv.innerHTML = `<div class="no-bus">No buses found for this route</div>`;
+        return;
+    }
+
+    // Build table
+    let table = `<table>
+                    <tr>
+                        <th>Bus No</th>
+                        <th>Boarding</th>
+                        <th>Ending</th>
+                        <th>${source} Time</th>
+                        <th>${destination} Time</th>
+                    </tr>`;
+
+    availableBuses.forEach(bus => {
+        table += `<tr>
+                    <td>${bus.busNo}</td>
+                    <td>${bus.boarding}</td>
+                    <td>${bus.ending}</td>
+                    <td>${bus.srcTime}</td>
+                    <td>${bus.destTime}</td>
+                  </tr>`;
+    });
+
+    table += "</table>";
+    resultDiv.innerHTML = table;
+}
+</script>
+
+</body>
+</html>
