@@ -23,105 +23,64 @@
       "boarding": "Thrissur",
       "ending": "Chalakudy",
       "stops": ["Thrissur","Ollur","Chalakudy"],
-      "timings": ["08:00","08:20","08:40"]
+      "timings": ["08:00","08:20","08:40"],
+      "currentTimings": ["08:05","08:25","08:50"]
     },
     {
       "busNo": "102",
       "boarding": "Thrissur",
       "ending": "Kodungallur",
       "stops": ["Thrissur","Punkunnam","Kodungallur"],
-      "timings": ["08:15","08:35","09:00"]
+      "timings": ["08:15","08:35","09:00"],
+      "currentTimings": ["08:15","08:40","09:10"]
     },
     {
       "busNo": "103",
       "boarding": "Guruvayur",
       "ending": "Irinjalakuda",
       "stops": ["Guruvayur","Thrissur","Irinjalakuda"],
-      "timings": ["07:50","08:30","09:00"]
+      "timings": ["07:50","08:30","09:00"],
+      "currentTimings": ["07:55","08:35","09:05"]
     },
     {
       "busNo": "104",
       "boarding": "Punkunnam",
       "ending": "Mannuthy",
       "stops": ["Punkunnam","Athani","Mannuthy"],
-      "timings": ["09:00","09:20","09:40"]
+      "timings": ["09:00","09:20","09:40"],
+      "currentTimings": ["09:00","09:22","09:50"]
     },
     {
       "busNo": "105",
       "boarding": "Wadakkanchery",
       "ending": "Thrissur",
       "stops": ["Wadakkanchery","Kunnamkulam","Thrissur"],
-      "timings": ["06:30","07:10","07:50"]
+      "timings": ["06:30","07:10","07:50"],
+      "currentTimings": ["06:35","07:15","07:55"]
     },
     {
       "busNo": "106",
       "boarding": "Cherpu",
       "ending": "Pavaratty",
       "stops": ["Cherpu","Mannuthy","Pavaratty"],
-      "timings": ["08:10","08:35","09:00"]
+      "timings": ["08:10","08:35","09:00"],
+      "currentTimings": ["08:12","08:40","09:05"]
     },
     {
       "busNo": "107",
       "boarding": "Thrissur",
       "ending": "Guruvayur",
       "stops": ["Thrissur","Viyyur","Guruvayur"],
-      "timings": ["07:30","07:50","08:20"]
+      "timings": ["07:30","07:50","08:20"],
+      "currentTimings": ["07:32","07:55","08:25"]
     },
     {
       "busNo": "108",
       "boarding": "West Fort",
       "ending": "East Fort",
       "stops": ["West Fort","Thrissur","East Fort"],
-      "timings": ["06:45","07:10","07:35"]
-    },
-    {
-      "busNo": "109",
-      "boarding": "Mannuthy",
-      "ending": "Kodungallur",
-      "stops": ["Mannuthy","Thrissur","Kodungallur"],
-      "timings": ["09:15","09:40","10:10"]
-    },
-    {
-      "busNo": "110",
-      "boarding": "Athani",
-      "ending": "Chalakudy",
-      "stops": ["Athani","Punkunnam","Chalakudy"],
-      "timings": ["08:05","08:25","08:50"]
-    },
-    {
-      "busNo": "111",
-      "boarding": "Kunnamkulam",
-      "ending": "Thrissur",
-      "stops": ["Kunnamkulam","Wadakkanchery","Thrissur"],
-      "timings": ["06:50","07:30","08:10"]
-    },
-    {
-      "busNo": "112",
-      "boarding": "Pavaratty",
-      "ending": "Thrissur",
-      "stops": ["Pavaratty","Mannuthy","Thrissur"],
-      "timings": ["07:20","07:45","08:10"]
-    },
-    {
-      "busNo": "113",
-      "boarding": "Ollur",
-      "ending": "Irinjalakuda",
-      "stops": ["Ollur","Thrissur","Irinjalakuda"],
-      "timings": ["08:00","08:25","08:50"]
-    },
-    {
-      "busNo": "114",
-      "boarding": "Thrissur",
-      "ending": "Punkunnam",
-      "stops": ["Thrissur","West Fort","Punkunnam"],
-      "timings": ["07:00","07:20","07:45"]
-    },
-    {
-      "busNo": "115",
-      "boarding": "East Fort",
-      "ending": "Guruvayur",
-      "stops": ["East Fort","Thrissur","Guruvayur"],
-      "timings": ["06:40","07:10","07:40"]
+      "timings": ["06:45","07:10","07:35"],
+      "currentTimings": ["06:50","07:15","07:40"]
     }
   ]
 }

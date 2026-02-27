@@ -3,14 +3,12 @@
 <head>
     <title>Thrissur Bus Route Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f4f4f4;
             padding: 20px;
         }
-
         .container {
             max-width: 500px;
             margin: auto;
@@ -19,17 +17,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        h3 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
+        h3 { text-align: center; margin-bottom: 20px; }
+        .input-group { position: relative; margin-bottom: 15px; }
         input {
             width: 100%;
             padding: 12px;
@@ -37,7 +26,6 @@
             border-radius: 8px;
             border: 1px solid #ccc;
         }
-
         .dropdown {
             position: absolute;
             width: 100%;
@@ -49,16 +37,11 @@
             border-radius: 8px;
             z-index: 1000;
         }
-
         .dropdown div {
             padding: 10px;
             cursor: pointer;
         }
-
-        .dropdown div:hover {
-            background: #f1f1f1;
-        }
-
+        .dropdown div:hover { background: #f1f1f1; }
         button {
             width: 100%;
             padding: 12px;
@@ -70,36 +53,17 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007BFF;
-            color: white;
-        }
-
-        .no-bus {
-            text-align: center;
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        table, th, td { border: 1px solid #ccc; }
+        th, td { padding: 10px; text-align: center; }
+        th { background-color: #007BFF; color: white; }
+        .no-bus { text-align: center; color: red; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
-
 <body>
 
 <div class="container">
@@ -121,18 +85,83 @@
 </div>
 
 <script>
-let places = [];
-let buses = [];
+// JSON data with live timings
+const places = [
+    "Thrissur","Guruvayur","Ollur","Chalakudy","Kodungallur","Irinjalakuda",
+    "Wadakkanchery","Punkunnam","Kunnamkulam","Athani","Cherpu","Mannuthy",
+    "Pavaratty","Viyyur","West Fort","East Fort"
+];
 
-// Load JSON
-fetch("places.json")
-.then(res => res.json())
-.then(data => {
-    places = data.places.sort();
-    buses = data.buses;
-});
 
-// Autocomplete
+
+const buses = [
+    {
+      "busNo": "101",
+      "boarding": "Thrissur",
+      "ending": "Chalakudy",
+      "stops": ["Thrissur","Ollur","Chalakudy"],
+      "timings": ["08:00","08:20","08:40"],
+      "currentTimings": ["08:05","08:25","08:50"]
+    },
+    {
+      "busNo": "102",
+      "boarding": "Thrissur",
+      "ending": "Kodungallur",
+      "stops": ["Thrissur","Punkunnam","Kodungallur"],
+      "timings": ["08:15","08:35","09:00"],
+      "currentTimings": ["08:15","08:40","09:10"]
+    },
+    {
+      "busNo": "103",
+      "boarding": "Guruvayur",
+      "ending": "Irinjalakuda",
+      "stops": ["Guruvayur","Thrissur","Irinjalakuda"],
+      "timings": ["07:50","08:30","09:00"],
+      "currentTimings": ["07:55","08:35","09:05"]
+    },
+    {
+      "busNo": "104",
+      "boarding": "Punkunnam",
+      "ending": "Mannuthy",
+      "stops": ["Punkunnam","Athani","Mannuthy"],
+      "timings": ["09:00","09:20","09:40"],
+      "currentTimings": ["09:00","09:22","09:50"]
+    },
+    {
+      "busNo": "105",
+      "boarding": "Wadakkanchery",
+      "ending": "Thrissur",
+      "stops": ["Wadakkanchery","Kunnamkulam","Thrissur"],
+      "timings": ["06:30","07:10","07:50"],
+      "currentTimings": ["06:35","07:15","07:55"]
+    },
+    {
+      "busNo": "106",
+      "boarding": "Cherpu",
+      "ending": "Pavaratty",
+      "stops": ["Cherpu","Mannuthy","Pavaratty"],
+      "timings": ["08:10","08:35","09:00"],
+      "currentTimings": ["08:12","08:40","09:05"]
+    },
+    {
+      "busNo": "107",
+      "boarding": "Thrissur",
+      "ending": "Guruvayur",
+      "stops": ["Thrissur","Viyyur","Guruvayur"],
+      "timings": ["07:30","07:50","08:20"],
+      "currentTimings": ["07:32","07:55","08:25"]
+    },
+    {
+      "busNo": "108",
+      "boarding": "West Fort",
+      "ending": "East Fort",
+      "stops": ["West Fort","Thrissur","East Fort"],
+      "timings": ["06:45","07:10","07:35"],
+      "currentTimings": ["06:50","07:15","07:40"]
+    }
+];
+
+// Autocomplete setup
 function setupAutocomplete(inputId, dropdownId) {
     const input = document.getElementById(inputId);
     const dropdown = document.getElementById(dropdownId);
@@ -166,7 +195,7 @@ function setupAutocomplete(inputId, dropdownId) {
 setupAutocomplete("source", "sourceDropdown");
 setupAutocomplete("destination", "destinationDropdown");
 
-// Search route
+// Search function with delay info
 function searchRoute() {
     const source = document.getElementById("source").value;
     const destination = document.getElementById("destination").value;
@@ -175,6 +204,11 @@ function searchRoute() {
 
     if(!source || !destination){
         alert("Please enter both source and destination");
+        return;
+    }
+
+    if(source === destination){
+        alert("Source and destination cannot be the same.");
         return;
     }
 
@@ -189,8 +223,10 @@ function searchRoute() {
                 busNo: bus.busNo,
                 boarding: bus.boarding,
                 ending: bus.ending,
-                srcTime: bus.timings[srcIndex],
-                destTime: bus.timings[destIndex]
+                srcScheduled: bus.timings[srcIndex],
+                destScheduled: bus.timings[destIndex],
+                srcCurrent: bus.currentTimings ? bus.currentTimings[srcIndex] : bus.timings[srcIndex],
+                destCurrent: bus.currentTimings ? bus.currentTimings[destIndex] : bus.timings[destIndex]
             });
         }
     });
@@ -200,23 +236,32 @@ function searchRoute() {
         return;
     }
 
-    // Build table
     let table = `<table>
                     <tr>
                         <th>Bus No</th>
                         <th>Boarding</th>
                         <th>Ending</th>
-                        <th>${source} Time</th>
-                        <th>${destination} Time</th>
+                        <th>${source}</th>
+                        <th>${destination}</th>
                     </tr>`;
 
     availableBuses.forEach(bus => {
+        let srcDisplay = bus.srcScheduled;
+        if(bus.srcScheduled !== bus.srcCurrent){
+            srcDisplay = `<span style="color:red">Delayed: ${bus.srcCurrent} (Scheduled: ${bus.srcScheduled})</span>`;
+        }
+
+        let destDisplay = bus.destScheduled;
+        if(bus.destScheduled !== bus.destCurrent){
+            destDisplay = `<span style="color:red">Delayed: ${bus.destCurrent} (Scheduled: ${bus.destScheduled})</span>`;
+        }
+
         table += `<tr>
                     <td>${bus.busNo}</td>
                     <td>${bus.boarding}</td>
                     <td>${bus.ending}</td>
-                    <td>${bus.srcTime}</td>
-                    <td>${bus.destTime}</td>
+                    <td>${srcDisplay}</td>
+                    <td>${destDisplay}</td>
                   </tr>`;
     });
 
