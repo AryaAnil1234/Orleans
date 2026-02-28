@@ -2,39 +2,39 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+LIVE BUS ROUTER FOR THRISSUR 🎯
 
 ## Basic Details
 
 ### Team Name: [Name]
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: GOURI C.S - Vidya academy of science and technology
+- Member 2: ARYANANDA ANILKUMAR - Vidya academy of science and technology
 
 ### Hosted Project Link
-[mention your project hosted link here]
-
+https://aryaanil1234.github.io/Orleans/
 ### Project Description
-[2-3 lines about what your project does]
+
+A **mobile-friendly web application** for Thrissur city buses that allows users to **search buses between any two stops**. It features **autocomplete for source and destination**, displays **bus numbers, boarding and ending points, and arrival times**, and can **track the current status of specific buses** to detect delays in real-time.
+
 
 ### The Problem statement
-[What problem are you solving?]
+Commuters in Thrissur often face difficulty in finding available buses between specific locations and estimating their arrival times. Manual searches or asking around are time-consuming and inefficient. There is a need for a digital solution that provides real-time bus route information, including bus numbers, stops, timings, and live status, to help passengers plan their journeys efficiently.
 
 ### The Solution
-[How are you solving it?]
-
+The project provides a web-based bus route application for Thrissur city that allows users to select source and destination with autocomplete suggestions. It displays all buses operating on that route along with their boarding point, ending point, and expected arrival times. Additionally, it includes a live status feature to detect delays and show the current location of selected buses, making commuting faster, convenient, and reliable.
 ---
 
 ## Technical Details
 
-### Technologies/Components Used
 
-**For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+### Technologies/Components Used
+For Software:
+Languages used: JavaScript, HTML, CSS
+Frameworks used: None (vanilla JS front-end; can be extended with React if needed)
+Libraries used: None (pure JS; fetch() for JSON handling)
+Tools used: VS Code, Git, Browser (Chrome/Firefox/Edge for testing)
 
 **For Hardware:**
 - Main components: [List main components]
@@ -43,42 +43,63 @@
 
 ---
 
-## Features
+**Features**
+Feature 1: Autocomplete for Stops – Source and destination fields suggest bus stops dynamically as the user types, making selection faster and error-free.
+Feature 2: Route Search – Displays all buses traveling from the selected source to the selected destination.
+Feature 3: Bus Timings Table – Shows each bus’s number, boarding point, ending point, and expected arrival times at the selected stops.
+Feature 4: Live Bus Status & Delay Detection – Tracks specific buses (like Bus 113) in real-time based on current time, showing the bus’s location and detecting delays.
 
-List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
 
----
+Here’s a complete Implementation section tailored for your Thrissur Bus Route Web Project, ready to include in your documentation:
 
-## Implementation
+**Implementation**
+**For Software:**
+Installation
+# 1. Clone the project repository
+git clone <repository-url>
+cd thrissur-bus-route
 
-### For Software:
+# 2. Place the JSON file (places.json) in the project folder
+# Ensure index.html, style.css, and script.js are in the same directory or correct paths
 
-#### Installation
-```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
-```
+# 3. Open index.html directly in your browser
+# OR run a local server (recommended for fetch requests):
+python -m http.server 8000
+# Open http://localhost:8000 in your browser
+Run
+# If using direct browser:
+# Open index.html in any browser (Chrome, Firefox, Edge)
 
-#### Run
-```bash
-[Run commands - e.g., npm start, python app.py]
-```
+# If using local server:
+# python -m http.server 8000
+# Visit http://localhost:8000
+For Hardware:
+Note: This project is entirely software-based; no hardware components are required.
+Components Required: none
+Circuit Setup:not applicable
 
-### For Hardware:
+**Project Documentation**
+The project consists of:
+HTML Front-End – Contains input fields for source and destination, autocomplete dropdowns, and buttons for searching routes and checking bus status.
+CSS Styling – Responsive and mobile-friendly layout for usability on different devices.
+**JavaScript Logic** – Handles:
+Loading JSON data (bus stops and buses with timings)
+Autocomplete feature for selecting stops
+Filtering buses for a selected route
+Displaying results in a table format
+Live bus status detection based on current time and delays
+**JSON Data**– Stores all bus stop names and bus details, including:
+Bus number:
+Boarding point:
+Ending point:
+Stops along the route:
+Timings at each stop
 
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
----
-
-## Project Documentation
-
+User Flow:
+User enters source and destination
+Autocomplete helps select valid stops
+Clicking Search displays all buses traveling the route
+Clicking Check Live Status shows real-time location and delay of selected buses (e.g., Bus 113)
 ### For Software:
 
 #### Screenshots (Add at least 3)
