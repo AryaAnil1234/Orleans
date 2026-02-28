@@ -34,12 +34,7 @@ For Software:
 Languages used: JavaScript, HTML, CSS
 Frameworks used: None (vanilla JS front-end; can be extended with React if needed)
 Libraries used: None (pure JS; fetch() for JSON handling)
-Tools used: VS Code, Git, Browser (Chrome/Firefox/Edge for testing)
-
-**For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
+Tools used: VS Code, Git, Browser (Chrome/Firefox/Edge for testing
 
 ---
 
@@ -104,38 +99,35 @@ Clicking Check Live Status shows real-time location and delay of selected buses 
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
+![Screenshot1]()#### Screenshots (Add at least 3)
+
+![Screenshot1](This screenshot shows the search interface with source and destination input fields. The autocomplete dropdown displays suggestions for bus stops as the user types)
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+![Screenshot2](This screenshot displays the route search results in a table format. It lists all buses operating between the selected source and destination, showing the bus number, boarding point, ending point, and arrival times at the selected stops.)
 *Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot3](This screenshot shows the live status feature for Bus 113. It displays the bus’s current location, whether it is at a stop, between stops, or delayed, based on real-time calculations.)
 
 #### Diagrams
 
 **System Architecture:**
 
-![Architecture Diagram](docs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
+The system architecture illustrates the components and data flow of the application:
+
+User Interface (HTML/CSS/JS) – Provides the input fields, search button, results table, and live status display.
+JSON Data – Stores all bus stop names and bus details including stops and timings.
+JavaScript Logic – Handles autocomplete, route search filtering, table generation, and live bus status calculation.
+Data Flow – User inputs → JS processes JSON → UI displays filtered results and bus status.
+
 
 **Application Workflow:**
 
-![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
-
----
-
-### For Hardware:
-
-#### Schematic & Circuit
-
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
+The application workflow shows the step-by-step process:
+The user enters source and destination → autocomplete helps select valid stops.
+Clicking Search → JS filters buses that pass from source → destination.
+Search results are displayed in a table with bus details.
+Clicking Check Live Status → the system calculates the current bus location based on timing and detects any delays.
 
 #### Build Photos
 
