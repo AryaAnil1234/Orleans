@@ -1,101 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Thrissur Bus Route Tracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #ffffff);
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            width: 100%;
-            max-width: 650px;
-            background: #fff;
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            animation: fadeIn 0.8s ease;
-        }
-        @keyframes fadeIn { 0% { opacity:0; transform:translateY(30px);} 100% {opacity:1; transform:translateY(0);} }
-        h3 {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 2em;
-            color: #007BFF;
-            letter-spacing: 1px;
-        }
-        .input-group { position: relative; margin-bottom: 20px; }
-        input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 16px;
-            border-radius: 12px;
-            border: 1px solid #ccc;
-            transition: all 0.3s;
-        }
-        input:focus { outline:none; border-color:#007BFF; box-shadow:0 0 10px rgba(0,123,255,0.2);}
-        .dropdown {
-            position: absolute;
-            width: 100%;
-            background: #fff;
-            border: 1px solid #ccc;
-            max-height: 180px;
-            overflow-y: auto;
-            display: none;
-            border-radius: 10px;
-            z-index: 1000;
-        }
-        .dropdown div { padding: 10px 14px; cursor: pointer; transition: background 0.2s; }
-        .dropdown div:hover { background: #f0f8ff; }
-        button {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg,#007BFF,#00CFFF);
-            color:white;
-            font-weight:bold;
-            cursor:pointer;
-            margin-bottom:20px;
-            transition: all 0.3s;
-        }
-        button:hover { background: linear-gradient(90deg,#0056b3,#00a1c4); }
+<title>Thrissur Live Bus Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* Reset & fonts */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height:100vh;
+    display:flex; justify-content:center; align-items:flex-start;
+    padding: 40px 10px;
+    background: linear-gradient(to bottom, rgba(0,123,255,0.3), rgba(255,255,255,0.3)), 
+                url('https://images.unsplash.com/photo-1618145293368-8f6e3fc914b4?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
 
-        /* Card style for buses */
-        .bus-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f9f9f9;
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .bus-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+/* Container */
+.container {
+    width:100%; max-width:720px;
+    background: rgba(255,255,255,0.95);
+    border-radius:25px; padding:30px 25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.8s ease;
+}
 
-        .bus-info { display: flex; align-items: center; }
-        .bus-info img { width: 50px; height: 50px; margin-right: 15px; }
-        .bus-details { display: flex; flex-direction: column; }
-        .bus-details span { font-weight: 600; }
-        .times { display: flex; flex-direction: column; align-items: flex-end; }
-        .delayed { color: #ff3d00; font-weight: 700; }
-        .ontime { color: #00bfa5; font-weight: 600; }
+/* Heading */
+h3 { text-align:center; margin-bottom:30px; font-size:2em; color:#007BFF; letter-spacing:1px; }
 
-        .no-bus { text-align: center; color: #ff3d00; font-weight: bold; margin-top: 15px; font-size: 16px; }
-    </style>
+/* Inputs */
+.input-group { position: relative; margin-bottom:20px; }
+input {
+    width:100%; padding:14px 16px; font-size:16px; border-radius:12px; border:1px solid #ccc;
+    transition: all 0.3s;
+}
+input:focus { outline:none; border-color:#007BFF; box-shadow:0 0 10px rgba(0,123,255,0.3); }
+
+.dropdown {
+    position:absolute; width:100%; background:#fff; border:1px solid #ccc;
+    max-height:180px; overflow-y:auto; display:none; border-radius:10px; z-index:1000;
+}
+.dropdown div { padding:10px 14px; cursor:pointer; transition: background 0.2s; }
+.dropdown div:hover { background:#f0f8ff; }
+
+/* Button */
+button {
+    width:100%; padding:14px; font-size:16px; border:none; border-radius:12px;
+    background: linear-gradient(90deg,#007BFF,#00CFFF);
+    color:white; font-weight:bold; cursor:pointer; margin-bottom:20px;
+    transition: all 0.3s;
+}
+button:hover { background: linear-gradient(90deg,#0056b3,#00a1c4); }
+
+/* Bus Cards */
+.bus-card {
+    display:flex; align-items:center; justify-content:space-between;
+    background: linear-gradient(135deg,#ffffff,#e0f7fa);
+    border-radius:20px; padding:18px 22px; margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1); position:relative;
+    animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }
+
+.bus-info { display:flex; align-items:center; }
+.bus-info img { width:50px; height:50px; margin-right:15px; animation: floatBus 2s ease-in-out infinite alternate; }
+@keyframes floatBus { 0% {transform:translateY(0);} 100% {transform:translateY(-5px);} }
+
+.bus-details { display:flex; flex-direction:column; }
+.bus-details span { font-weight:600; font-size:16px; }
+
+.times { display:flex; flex-direction:column; align-items:flex-end; }
+.delayed {
+    color:#ff3d00; font-weight:700; font-size:14px;
+    animation: blink 1.2s infinite;
+}
+.ontime { color:#00bfa5; font-weight:600; font-size:14px; }
+@keyframes blink { 0%,50%,100% {opacity:1;} 25%,75% {opacity:0.3;} }
+
+.no-bus { text-align:center; color:#ff3d00; font-weight:bold; margin-top:15px; font-size:16px; }
+
+/* Responsive */
+@media(max-width:500px){
+    .bus-card { flex-direction:column; align-items:flex-start; }
+    .times { align-items:flex-start; margin-top:8px; }
+}
+</style>
 </head>
 <body>
 <div class="container">
-    <h3>Thrissur Bus Tracker</h3>
+    <h3>Thrissur Live Bus Tracker</h3>
 
     <div class="input-group">
         <input type="text" id="source" placeholder="Enter Source">
@@ -120,13 +114,13 @@ const buses = [
     { "busNo":"103","boarding":"Guruvayur","ending":"Irinjalakuda","stops":["Guruvayur","Thrissur","Irinjalakuda"],"timings":["07:50","08:30","09:00"],"currentTimings":["07:55","08:35","09:05"] }
 ];
 
-function setupAutocomplete(inputId, dropdownId) {
-    const input = document.getElementById(inputId);
-    const dropdown = document.getElementById(dropdownId);
-    input.addEventListener("focus", ()=>showDropdown(places));
-    input.addEventListener("input", function(){
-        const val = this.value.toLowerCase();
-        const filtered = places.filter(p=>p.toLowerCase().includes(val));
+function setupAutocomplete(inputId, dropdownId){
+    const input=document.getElementById(inputId);
+    const dropdown=document.getElementById(dropdownId);
+    input.addEventListener("focus",()=>showDropdown(places));
+    input.addEventListener("input",function(){
+        const val=this.value.toLowerCase();
+        const filtered=places.filter(p=>p.toLowerCase().includes(val));
         showDropdown(filtered);
     });
     function showDropdown(list){
@@ -140,7 +134,7 @@ function setupAutocomplete(inputId, dropdownId) {
         });
         dropdown.style.display="block";
     }
-    document.addEventListener("click", e=>{
+    document.addEventListener("click",e=>{
         if(!input.contains(e.target)&&!dropdown.contains(e.target)) dropdown.style.display="none";
     });
 }
@@ -152,7 +146,6 @@ function searchRoute(){
     const destination=document.getElementById("destination").value;
     const resultDiv=document.getElementById("busResult");
     resultDiv.innerHTML="";
-
     if(!source || !destination){ alert("Enter both source & destination"); return; }
     if(source===destination){ alert("Source and destination cannot be the same"); return; }
 
